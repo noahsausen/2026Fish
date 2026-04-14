@@ -48,11 +48,11 @@ public class JellyTele extends BaseOpMode {
         telemetry.addData("Loops Per Sec", loopsPerSec);
         prevLoopNanoTime = currentNanoTime;
         
-        // endgame alert
-        if (matchTimer.seconds() >= 110 && !alertedEndgame) {
-            alertedEndgame = true;
-            controller.megaRumble();
-        }
+        // endgame alert -- TODO: enable?
+//        if (matchTimer.seconds() >= 110 && !alertedEndgame) {
+//            alertedEndgame = true;
+//            controller.megaRumble();
+//        }
         
         telemetry.addData("Match Time", (int) matchTimer.seconds());
     }
@@ -157,10 +157,10 @@ public class JellyTele extends BaseOpMode {
     }
     
     private double getPrecisionMultiplier() {
-        if (controller.lowPrecision()) {
-            return PRECISION_MULTIPLIER_LOW;
-        } else if (controller.highPrecision()) {
+        if (controller.highPrecision()) {
             return PRECISION_MULTIPLIER_HIGH;
+        } else if (controller.lowPrecision()) {
+            return PRECISION_MULTIPLIER_LOW;
         }
         return 1;
     }

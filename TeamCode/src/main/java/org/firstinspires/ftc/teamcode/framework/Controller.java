@@ -25,7 +25,6 @@ public class Controller {
     
     public boolean lowPrecision() { return gamepad1.left_bumper; }
     public boolean highPrecision() { return gamepad1.right_bumper; }
-    public boolean driveMode() { return gamepad1.ps; }
     public boolean driveModePressed() { return gamepad1.psWasPressed(); }
     
     public boolean intake() { return gamepad1.cross; }
@@ -58,34 +57,4 @@ public class Controller {
         gamepad2.runRumbleEffect(megaEffect);
     }
     
-//    public void setLEDs(JellyTele.SpinState state) {
-//        double[] rgb = {0, 0, 0};
-//        if (state != null) {
-//            switch (state) {
-//                case STANDBY:
-//                    rgb = new double[] {0.9, 1, 0.9}; // white
-//                    break;
-//                case PRESPIN_OUTTAKE:
-//                    rgb = new double[] {1, 0, 1}; // purple
-//                    break;
-//                case SPIN_INTAKE:
-//                    rgb = new double[] {1, 1, 0}; // yellow
-//                    break;
-//                case SPIN_OUTTAKE:
-//                    rgb = new double[] {0, 0.7, 1}; // cyan
-//                    break;
-//                case INTAKING:
-//                    rgb = new double[] {0, 1, 0}; // green
-//                    break;
-//                case OUTTAKING:
-//                    rgb = new double[] {0, 0.2, 1}; // blue
-//                    break;
-//                case UNJAM:
-//                    rgb = new double[] {1, 0, 0}; // red
-//                    break;
-//            }
-//        }
-//        this.gamepad1.setLedColor(rgb[0], rgb[1], rgb[2], Gamepad.LED_DURATION_CONTINUOUS);
-//        this.gamepad2.setLedColor(rgb[0], rgb[1], rgb[2], Gamepad.LED_DURATION_CONTINUOUS);
-//    }
 }

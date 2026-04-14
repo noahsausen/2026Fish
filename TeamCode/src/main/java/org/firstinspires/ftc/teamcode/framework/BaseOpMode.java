@@ -19,8 +19,8 @@ public abstract class BaseOpMode extends LinearOpMode {
     protected ElapsedTime matchTimer;
     protected double imuOffset = 0;
     
-    // TODO: we need to make sure nothing moves during auto → teleop transition
-    public void initHardware(boolean auto) { // TODO: need auto boolean?
+    // TODO: make sure nothing moves during auto → teleop transition
+    public void initHardware(boolean auto) { // TODO: need auto boolean? (to prevent movement)
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         
         // Drivetrain Motors (SAME ORDER IN HARDWARE CONFIG)
@@ -33,7 +33,7 @@ public abstract class BaseOpMode extends LinearOpMode {
         
         drivetrain = new Drivetrain(driveMotors);
         
-        drivetrain.setMotorDirections(new DcMotor.Direction[]{
+        drivetrain.setMotorDirections(new DcMotor.Direction[]{ // TODO: check directions
                 DcMotor.Direction.REVERSE, // motorFL
                 DcMotor.Direction.REVERSE, // motorBL
                 DcMotor.Direction.FORWARD, // motorFR
@@ -43,8 +43,9 @@ public abstract class BaseOpMode extends LinearOpMode {
         
         // OTHER HARDWARE
         
+        // TODO: aux hardware classes & init here
+        
         controller = new Controller(gamepad1,gamepad2);
-        //controller.setLEDs(null);
         
         imuSensor = initializeIMUSensor();
         imuOffset = imuSensor.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
@@ -54,7 +55,7 @@ public abstract class BaseOpMode extends LinearOpMode {
     private IMU initializeIMUSensor()
     {
         IMU imu = hardwareMap.get(IMU.class, "imu");
-        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot( // TODO: check orientation
                 RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
                 RevHubOrientationOnRobot.UsbFacingDirection.UP));
         imu.initialize(parameters);
