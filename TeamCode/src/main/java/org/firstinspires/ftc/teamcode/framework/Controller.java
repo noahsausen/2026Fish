@@ -26,6 +26,7 @@ public class Controller {
     public boolean lowPrecision() { return gamepad1.left_bumper; }
     public boolean highPrecision() { return gamepad1.right_bumper; }
     public boolean driveMode() { return gamepad1.ps; }
+    public boolean driveModePressed() { return gamepad1.psWasPressed(); }
     
     public boolean intake() { return gamepad1.cross; }
     public boolean outtake() { return gamepad1.circle; }
