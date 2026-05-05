@@ -19,27 +19,37 @@ public class Controller {
     
     // Button Mapping -- TODO: update
     
-    public double moveX() { return gamepad1.left_stick_x; }
-    public double moveY() { return -gamepad1.left_stick_y; }
-    public double turnX() { return gamepad1.right_stick_x; }
+    public double moveX() {
+        return gamepad1.left_stick_x + gamepad2.left_stick_x;
+    }
+    public double moveY() {
+        return -(gamepad1.left_stick_y + gamepad2.left_stick_y);
+    }
+    public double turnX() {
+        return gamepad1.right_stick_x + gamepad2.right_stick_x;
+    }
     
-    public boolean lowPrecision() { return gamepad1.left_bumper; }
-    public boolean highPrecision() { return gamepad1.right_bumper; }
-    public boolean driveModePressed() { return gamepad1.psWasPressed(); }
+    public boolean lowPrecision() {
+        return gamepad1.left_bumper || gamepad2.left_bumper;
+    }
+    public boolean highPrecision() {
+        return gamepad1.right_bumper || gamepad2.right_bumper;
+    }
+    public boolean driveModePressed() {
+        return gamepad1.psWasPressed() || gamepad2.psWasPressed();
+    }
     
-    public boolean intake() { return gamepad1.cross; }
-    public boolean outtake() { return gamepad1.circle; }
+    public boolean intake() {
+        return gamepad1.cross || gamepad2.cross;
+    }
+    public boolean outtake() {
+        return gamepad1.circle || gamepad2.circle;
+    }
     
-    
-    
-//    public void rumble(double rumble1, double rumble2, int durationMs, boolean rumbleSecondary){
-//        if(rumbleSecondary){
-//            this.gamepad2.rumble(rumble1,rumble2,durationMs);
-//        }else{
-//            this.gamepad1.rumble(rumble1,rumble2,durationMs);
-//        }
-//
-//    }
+    public void rumble(int durationMs){
+        this.gamepad1.rumble(durationMs);
+        this.gamepad2.rumble(durationMs);
+    }
     
     public void megaRumble() {
         Gamepad.RumbleEffect megaEffect = new Gamepad.RumbleEffect.Builder()
