@@ -1,12 +1,8 @@
 package org.firstinspires.ftc.teamcode.framework;
 
-
-import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-//import org.firstinspires.ftc.teamcode.JellyTele;
-
-@Config
+//@Config
 public class Controller {
     
     private final Gamepad gamepad1;

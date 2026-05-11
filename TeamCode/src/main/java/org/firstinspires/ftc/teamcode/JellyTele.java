@@ -1,13 +1,12 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 import org.firstinspires.ftc.teamcode.framework.BaseOpMode;
 
 @TeleOp(name = "JellyTele", group = "1-OpMode")
-@Config
+//@Config
 public class JellyTele extends BaseOpMode {
     
     // Drivetrain Constants ↓
