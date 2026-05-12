@@ -17,16 +17,16 @@ public abstract class BaseOpMode extends LinearOpMode {
     protected double imuOffset = 0;
     
     // TODO: make sure nothing moves during auto → teleop transition
-    public void initHardware(boolean auto) { // TODO: need auto boolean? (to prevent movement)
+    public void initHardware(boolean auto) { // TODO: auto boolean doesn't init drivetrain
 //        telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         
         // Drivetrain Motors (SAME ORDER IN HARDWARE CONFIG)
         
         DcMotor[] driveMotors = {
-                hardwareMap.get(DcMotor.class, "motorFL"),
-                hardwareMap.get(DcMotor.class, "motorBL"),
-                hardwareMap.get(DcMotor.class, "motorFR"),
-                hardwareMap.get(DcMotor.class, "motorBR")};
+                hardwareMap.get(DcMotor.class, "driveFL"),
+                hardwareMap.get(DcMotor.class, "driveBL"),
+                hardwareMap.get(DcMotor.class, "driveFR"),
+                hardwareMap.get(DcMotor.class, "driveBR")};
         
         drivetrain = new Drivetrain(driveMotors);
         
