@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.framework;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-//@Config
 public class Controller {
     
     private final Gamepad gamepad1;

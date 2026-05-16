@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 import org.firstinspires.ftc.teamcode.framework.BaseOpMode;
 
+@Configurable
 @TeleOp(name = "JellyTele", group = "1-OpMode")
-//@Config
 public class JellyTele extends BaseOpMode {
     
     // Drivetrain Constants ↓
@@ -33,7 +34,7 @@ public class JellyTele extends BaseOpMode {
     }
     
     private void updateTiming() {
-        // loops per sec experiment
+        // loops per sec
         long currentNanoTime = System.nanoTime();
         long nanoPerLoop = currentNanoTime - prevLoopNanoTime;
         
@@ -116,7 +117,7 @@ public class JellyTele extends BaseOpMode {
     }
     
     private double[] calcFieldCentricDrive() {
-        double botHeading = imuSensor.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS) - imuOffset;
+        double botHeading = imuSensor.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
         
         double r = applyDeadband(controller.turnX());
         double x = applyDeadband(controller.moveX()) * STRAFE_ADJUSTMENT_FACTOR;

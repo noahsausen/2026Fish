@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode.framework;
 
+import com.bylazar.telemetry.JoinedTelemetry;
+import com.bylazar.telemetry.PanelsTelemetry;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 import org.firstinspires.ftc.teamcode.framework.hardware.Drivetrain;
 
@@ -14,52 +15,52 @@ public abstract class BaseOpMode extends LinearOpMode {
     protected Controller controller;
     protected IMU imuSensor;
     protected ElapsedTime matchTimer;
-    protected double imuOffset = 0;
     
     // TODO: make sure nothing moves during auto → teleop transition
-    public void initHardware(boolean auto) { // TODO: auto boolean doesn't init drivetrain
-//        telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
+    protected void initHardware(boolean auto) {
+        telemetry = new JoinedTelemetry(telemetry, PanelsTelemetry.INSTANCE.getFtcTelemetry()); // TODO: test joined telemetry
         
-        // Drivetrain Motors (SAME ORDER IN HARDWARE CONFIG)
-        
-        DcMotor[] driveMotors = {
-                hardwareMap.get(DcMotor.class, "driveFL"),
-                hardwareMap.get(DcMotor.class, "driveBL"),
-                hardwareMap.get(DcMotor.class, "driveFR"),
-                hardwareMap.get(DcMotor.class, "driveBR")};
-        
-        drivetrain = new Drivetrain(driveMotors);
-        
-        drivetrain.setMotorDirections(new DcMotor.Direction[]{ // TODO: check directions
-                DcMotor.Direction.REVERSE, // motorFL
-                DcMotor.Direction.REVERSE, // motorBL
-                DcMotor.Direction.FORWARD, // motorFR
-                DcMotor.Direction.FORWARD  // motorBR
-        });
-        
+        if (!auto) {
+            // Drivetrain Motors (SAME ORDER IN HARDWARE CONFIG)
+            DcMotor[] driveMotors = {
+                    hardwareMap.get(DcMotor.class, "driveFL"),
+                    hardwareMap.get(DcMotor.class, "driveBL"),
+                    hardwareMap.get(DcMotor.class, "driveFR"),
+                    hardwareMap.get(DcMotor.class, "driveBR")};
+            
+            drivetrain = new Drivetrain(driveMotors);
+            
+            drivetrain.setMotorDirections(new DcMotor.Direction[] { // _TODO: check directions
+                    DcMotor.Direction.REVERSE, // motorFL
+                    DcMotor.Direction.REVERSE, // motorBL
+                    DcMotor.Direction.FORWARD, // motorFR
+                    DcMotor.Direction.FORWARD  // motorBR
+            });
+            
+            // Anything else that isn't used during & might conflict with auto
+            
+            imuSensor = initializeIMU();
+            
+            matchTimer = new ElapsedTime();
+            
+            controller = new Controller(gamepad1,gamepad2);
+        }
         
         // OTHER HARDWARE
         
         // TODO: aux hardware classes & init here
-        
-        controller = new Controller(gamepad1,gamepad2);
-        
-        imuSensor = initializeIMUSensor();
-        imuOffset = imuSensor.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
-        
-        matchTimer = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
     }
-    private IMU initializeIMUSensor()
-    {
+    private IMU initializeIMU() {
         IMU imu = hardwareMap.get(IMU.class, "imu");
-        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot( // TODO: check orientation
+        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot( // _TODO: check orientation
                 RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
                 RevHubOrientationOnRobot.UsbFacingDirection.UP));
         imu.initialize(parameters);
+        imu.resetYaw();
         return imu;
     }
     
-    public void stopHardware() {
+    protected void stopHardware() {
         drivetrain.setMotorSpeeds(1, new double[]{0,0,0,0});
     }
 }
