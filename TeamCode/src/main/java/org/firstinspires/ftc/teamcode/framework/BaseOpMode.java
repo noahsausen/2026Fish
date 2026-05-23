@@ -37,7 +37,7 @@ public abstract class BaseOpMode extends LinearOpMode {
                     DcMotor.Direction.FORWARD  // motorBR
             });
             
-            // Anything else that isn't used during & might conflict with auto
+            // Anything else that (isn't used during / might conflict) with auto
             
             imuSensor = initializeIMU();
             
