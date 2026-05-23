@@ -36,7 +36,26 @@ public class Constants { // TODO: 5. other tuning after following todos
             .forwardEncoderDirection(GoBildaPinpointDriver.EncoderDirection.FORWARD) // TODO: 3. forward increases x
             .strafeEncoderDirection(GoBildaPinpointDriver.EncoderDirection.FORWARD); // left increases y
     
-    public static PathConstraints pathConstraints = new PathConstraints(0.99, 100, 1, 1);
+    /* DEFAULT REQUIREMENTS FOR PATHS TO BE CONSIDERED COMPLETE:
+     * TValue: min fraction of path complete (0-1)
+     * Velocity: max velocity (in/sec)
+     * Translational: max translational error (in)
+     * Heading: max heading error (radians)
+     * Timeout: wait for correction at path end (millis)
+     *
+     * DECELERATION CONSTANTS (likely ignored with predictive braking):
+     * Braking Strength: deceleration strength (> stronger)
+     * Braking Start: how early deceleration starts (> earlier)
+     */
+    public static PathConstraints pathConstraints = new PathConstraints(
+            0.995,
+            0.1,
+            0.1,
+            0.007,
+            100,
+            1,
+            10,
+            1);
     
     public static Follower createFollower(HardwareMap hardwareMap) {
         return new FollowerBuilder(followerConstants, hardwareMap)
