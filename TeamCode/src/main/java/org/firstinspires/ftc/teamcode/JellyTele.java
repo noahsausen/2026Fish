@@ -43,9 +43,9 @@ public class JellyTele extends BaseOpMode {
             loopsPerSec = 1e9 / nanoPerLoop;
         }
         
-        telemetry.addLine();
-        telemetry.addData("Millis Per Loop", (nanoPerLoop / 1e6));
-        telemetry.addData("Loops Per Sec", loopsPerSec);
+        telemetry.addLine("\nLoop Timing:");
+        telemetry.addData("\tMillis", (nanoPerLoop / 1e6));
+        telemetry.addData("\tHz", loopsPerSec);
         prevLoopNanoTime = currentNanoTime;
         
         // endgame alert -- TODO: enable?
