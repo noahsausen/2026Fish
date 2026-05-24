@@ -60,6 +60,7 @@ public abstract class BaseOpMode extends LinearOpMode {
         return imu;
     }
     
+    // CALLING THIS IN AUTO WILL CURRENTLY THROW NullPointerException FOR DRIVETRAIN
     protected void stopHardware() {
         drivetrain.setMotorSpeeds(1, new double[]{0,0,0,0});
     }

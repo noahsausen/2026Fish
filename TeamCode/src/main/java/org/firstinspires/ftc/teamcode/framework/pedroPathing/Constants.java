@@ -12,9 +12,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-public class Constants { // TODO: 5. other tuning after following todos
+public class Constants { // TODO: 4. other tuning after following todos
     public static FollowerConstants followerConstants = new FollowerConstants()
-            .mass(2); // kilograms -- TODO: 1. measure mass
+            .centripetalScaling(0);
     
     public static MecanumConstants driveConstants = new MecanumConstants()
             .maxPower(1)
@@ -28,12 +28,12 @@ public class Constants { // TODO: 5. other tuning after following todos
             .rightRearMotorDirection(DcMotorSimple.Direction.FORWARD);
     
     public static PinpointConstants localizerConstants = new PinpointConstants()
-            .forwardPodY(0) // TODO: 4. offsets tuner
+            .forwardPodY(0) // TODO: 3. offsets tuner
             .strafePodX(0)
             .distanceUnit(DistanceUnit.INCH)
-            .hardwareMapName("pinpoint") // TODO: 2. check: i2c port not 0, hardware map matches
+            .hardwareMapName("pinpoint") // TODO: 1. check: i2c port not 0, hardware map matches
             .encoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_SWINGARM_POD)
-            .forwardEncoderDirection(GoBildaPinpointDriver.EncoderDirection.FORWARD) // TODO: 3. forward increases x
+            .forwardEncoderDirection(GoBildaPinpointDriver.EncoderDirection.FORWARD) // TODO: 2. forward increases x,
             .strafeEncoderDirection(GoBildaPinpointDriver.EncoderDirection.FORWARD); // left increases y
     
     /* DEFAULT REQUIREMENTS FOR PATHS TO BE CONSIDERED COMPLETE:
@@ -48,7 +48,7 @@ public class Constants { // TODO: 5. other tuning after following todos
      * Braking Start: how early deceleration starts (> earlier)
      */
     public static PathConstraints pathConstraints = new PathConstraints(
-            0.995,
+            0.97,
             0.1,
             0.1,
             0.007,
