@@ -54,7 +54,7 @@ public abstract class BaseOpMode extends LinearOpMode {
         // OTHER HARDWARE
         
         try {
-            vision = new Vision(hardwareMap.get(Limelight3A.class, "limelight"));
+            vision = new Vision(hardwareMap.get(Limelight3A.class, "limelight"), this);
         } catch (Exception ignored) {}
     }
     private IMU initializeIMU() {
