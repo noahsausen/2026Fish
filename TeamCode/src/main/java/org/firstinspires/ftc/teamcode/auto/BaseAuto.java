@@ -13,7 +13,6 @@ public abstract class BaseAuto extends BaseOpMode {
     protected abstract Pose getStartPose();
     protected abstract void buildPaths();
     protected abstract Command getRoutine();
-    private long prevLoopNanoTime = 0;
     
     @Override
     public void runOpMode() throws InterruptedException {
@@ -22,10 +21,12 @@ public abstract class BaseAuto extends BaseOpMode {
         follower = Constants.createFollower(hardwareMap);
         follower.setStartingPose(getStartPose());
         buildPaths();
-        
-        waitForStart();
-        
         Command routine = getRoutine();
+        
+        initFinishedTelemetry();
+        waitForStart();
+        runtime.reset();
+        
         Scheduler.schedule(routine);
         
         while (opModeIsActive()) {
@@ -49,17 +50,7 @@ public abstract class BaseAuto extends BaseOpMode {
             telemetry.addData("Routine Scheduled", Scheduler.isScheduled(routine));
             telemetry.addData("Routine Running", Scheduler.isRunning(routine));
             
-            long currentNanoTime = System.nanoTime();
-            long nanoPerLoop = currentNanoTime - prevLoopNanoTime;
-            double loopsPerSec = 0;
-            if (nanoPerLoop != 0) {
-                loopsPerSec = 1e9 / nanoPerLoop;
-            }
-            telemetry.addLine("\nLoop Timing:");
-            telemetry.addData("\tMillis", (nanoPerLoop / 1e6));
-            telemetry.addData("\tHz", loopsPerSec);
-            prevLoopNanoTime = currentNanoTime;
-            
+            timingTelemetry();
             telemetry.update();
         }
     }

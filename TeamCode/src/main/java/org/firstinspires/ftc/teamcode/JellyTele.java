@@ -15,8 +15,6 @@ public class JellyTele extends BaseOpMode {
     public static double PRECISION_MULTIPLIER_HIGH = 0.2;
     public static double DEADBAND_VALUE = 0.02;
     public static double STRAFE_ADJUSTMENT_FACTOR = 1.08;
-    
-    private long prevLoopNanoTime = 0;
     private boolean alertedEndgame = false;
     
     @Override
@@ -24,45 +22,13 @@ public class JellyTele extends BaseOpMode {
         initHardware(false);
         initFinishedTelemetry();
         waitForStart();
-        matchTimer.reset();
+        runtime.reset();
         while (opModeIsActive()) {
             updateDrive();
-            updateTiming();
+            timingTelemetry();
             telemetry.update();
         }
         stopHardware();
-    }
-    
-    private void updateTiming() {
-        // loops per sec
-        long currentNanoTime = System.nanoTime();
-        long nanoPerLoop = currentNanoTime - prevLoopNanoTime;
-        
-        double loopsPerSec = 0;
-        if (nanoPerLoop > 0) {
-            loopsPerSec = 1e9 / nanoPerLoop;
-        }
-        
-        telemetry.addLine("\nLoop Timing:");
-        telemetry.addData("\tMillis", (nanoPerLoop / 1e6));
-        telemetry.addData("\tHz", loopsPerSec);
-        prevLoopNanoTime = currentNanoTime;
-        
-        // endgame alert -- TODO: enable?
-//        if (matchTimer.seconds() >= 110 && !alertedEndgame) {
-//            alertedEndgame = true;
-//            controller.megaRumble();
-//        }
-        
-        telemetry.addData("Match Time", (int) matchTimer.seconds());
-    }
-    
-    private void initFinishedTelemetry() {
-        telemetry.addLine("Status: Init Finished ------------------------------------------");
-        for (int i=0; i<16; i++) {
-            telemetry.addLine("------------------------------------------------------------------------");
-        }
-        telemetry.update();
     }
     
     
