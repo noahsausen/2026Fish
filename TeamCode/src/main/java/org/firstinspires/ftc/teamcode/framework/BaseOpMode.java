@@ -23,7 +23,7 @@ public abstract class BaseOpMode extends LinearOpMode {
     
     // TODO: make sure nothing moves during auto → teleop transition
     protected void initHardware(boolean auto) {
-        telemetry = new JoinedTelemetry(telemetry, PanelsTelemetry.INSTANCE.getFtcTelemetry()); // TODO: test joined telemetry
+        telemetry = new JoinedTelemetry(telemetry, PanelsTelemetry.INSTANCE.getFtcTelemetry());
         
         if (!auto) {
             // Drivetrain Motors (SAME ORDER IN HARDWARE CONFIG)
@@ -96,10 +96,9 @@ public abstract class BaseOpMode extends LinearOpMode {
     }
     
     protected void initFinishedTelemetry() {
-        telemetry.addLine("Status: Init Finished ------------------------------------------");
-        for (int i=0; i<16; i++) {
-            telemetry.addLine("------------------------------------------------------------------------");
+        telemetry.addLine("Status: Init Finished  --------------------------------------------");
+        for (int i=0; i<12; i++) {
+            telemetry.addLine("---------------------------------------------------------------------------");
         }
-        telemetry.update();
     }
 }

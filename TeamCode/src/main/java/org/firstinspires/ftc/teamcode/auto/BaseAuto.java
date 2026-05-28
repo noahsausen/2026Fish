@@ -23,8 +23,11 @@ public abstract class BaseAuto extends BaseOpMode {
         buildPaths();
         Command routine = getRoutine();
         
-        initFinishedTelemetry();
-        waitForStart();
+        while (opModeInInit()) {
+            initFinishedTelemetry();
+            timingTelemetry();
+            telemetry.update();
+        }
         runtime.reset();
         
         Scheduler.schedule(routine);

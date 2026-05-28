@@ -20,9 +20,13 @@ public class JellyTele extends BaseOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         initHardware(false);
-        initFinishedTelemetry();
-        waitForStart();
+        while (opModeInInit()) {
+            initFinishedTelemetry();
+            timingTelemetry();
+            telemetry.update();
+        }
         runtime.reset();
+        
         while (opModeIsActive()) {
             updateDrive();
             timingTelemetry();
