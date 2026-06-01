@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.auto;
 
+import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.ivy.groups.Groups;
@@ -11,6 +12,7 @@ import static com.pedropathing.ivy.commands.Commands.*;
 import static com.pedropathing.ivy.groups.Groups.*;
 import static com.pedropathing.ivy.pedro.PedroCommands.*;
 
+@Configurable
 @Autonomous(name = "BlueAuto")
 public class BlueAuto extends BaseAuto {
     public static Pose startPose = new Pose(36, 130, Math.toRadians(270));

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.framework.pedroPathing;
 
+import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.follower.FollowerConstants;
 import com.pedropathing.ftc.FollowerBuilder;
@@ -12,6 +13,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
+@Configurable
 public class Constants { // TODO: 4. other tuning after following todos
     public static FollowerConstants followerConstants = new FollowerConstants()
             .centripetalScaling(0);

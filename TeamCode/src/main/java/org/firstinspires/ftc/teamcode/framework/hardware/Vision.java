@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode.framework.hardware;
 
+import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.LLStatus;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+@Configurable
 public class Vision {
     private final Limelight3A limelight;
     public static int DEFAULT_PIPELINE = 0;

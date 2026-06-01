@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode.framework;
 
+import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+@Configurable
 public class Controller {
     public static double STICK_DEADBAND = 0.02;
     private final Gamepad gamepad1;
