@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.framework;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 public class Controller {
-    
+    public static double STICK_DEADBAND = 0.02;
     private final Gamepad gamepad1;
     private final Gamepad gamepad2;
     
@@ -62,4 +62,15 @@ public class Controller {
         gamepad2.runRumbleEffect(megaEffect);
     }
     
+    // linear rescaled deadband: lowers inputs to start at 0 and scales up to reach 1
+    private double applyDeadband(double stick) {
+        if (Math.abs(stick) > STICK_DEADBAND) {
+            double loweredStick = Math.abs(stick) - STICK_DEADBAND;
+            double rangeAfterDeadband = 1.0 - STICK_DEADBAND;
+            // divide the lowered stick by the range remaining to stretch it back to 0 - 1
+            return Math.copySign((loweredStick / rangeAfterDeadband), stick); // finish by copying the sign
+        } else {
+            return 0;
+        }
+    }
 }
