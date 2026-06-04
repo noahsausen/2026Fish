@@ -47,7 +47,7 @@ public abstract class BaseAuto extends BaseOpMode {
             telemetry.addData("\tPose Y", follower.getPose().getY());
             telemetry.addData("\tPose H", follower.getPose().getHeading());
             telemetry.addData("\tBusy", follower.isBusy());
-            telemetry.addData("\tBusy", follower.getCurrentTValue());
+            telemetry.addData("\tT-Value", follower.getCurrentTValue());
             
             telemetry.addLine("\nIvy Scheduler:");
             telemetry.addData("Routine Scheduled", Scheduler.isScheduled(routine));
@@ -57,6 +57,4 @@ public abstract class BaseAuto extends BaseOpMode {
             telemetry.update();
         }
     }
-    
-    // ↓ -------------- ↓ -------------- ↓ REUSED COMMANDS ↓ -------------- ↓ -------------- ↓
 }
