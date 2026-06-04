@@ -82,7 +82,7 @@ public class BlueAuto extends BaseAuto {
     @Override
     protected Command getRoutine() {
         return sequential(
-                instant(() -> intake.on()),
+                instant(intake::on),
                 follow(follower, score1Path),
                 waitMs(scorePauseMs),
                 follow(follower, score2Path),
@@ -93,7 +93,7 @@ public class BlueAuto extends BaseAuto {
                 waitMs(scorePauseMs),
                 follow(follower, score5Path),
                 waitMs(scorePauseMs),
-                instant(() -> intake.off()),
+                instant(intake::off),
                 follow(follower, parkPath),
                 Groups.loop(hold(follower)) // TODO: keep?
         );
