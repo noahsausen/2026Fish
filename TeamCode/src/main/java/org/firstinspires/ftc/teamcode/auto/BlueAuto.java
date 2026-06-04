@@ -93,8 +93,8 @@ public class BlueAuto extends BaseAuto {
                 waitMs(scorePauseMs),
                 follow(follower, score5Path),
                 waitMs(scorePauseMs),
-                follow(follower, parkPath),
                 instant(() -> intake.off()),
+                follow(follower, parkPath),
                 Groups.loop(hold(follower)) // TODO: keep?
         );
     }
