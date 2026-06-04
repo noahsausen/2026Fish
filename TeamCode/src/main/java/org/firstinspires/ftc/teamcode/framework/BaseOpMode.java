@@ -10,16 +10,19 @@ import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.framework.hardware.Drivetrain;
+import org.firstinspires.ftc.teamcode.framework.hardware.Intake;
 import org.firstinspires.ftc.teamcode.framework.hardware.Vision;
 
 public abstract class BaseOpMode extends LinearOpMode {
     protected Drivetrain drivetrain;
+    protected Intake intake;
     protected Controller controller;
     protected IMU imuSensor;
     protected ElapsedTime runtime;
     protected Vision vision;
     
     protected long prevLoopNanoTime = 0;
+    private boolean alertedEndgame = false;
     
     // TODO: make sure nothing moves during auto → teleop transition
     protected void initHardware(boolean auto) {
@@ -53,9 +56,9 @@ public abstract class BaseOpMode extends LinearOpMode {
         
         // OTHER HARDWARE
         
-        try {
-            vision = new Vision(hardwareMap.get(Limelight3A.class, "limelight"), this);
-        } catch (Exception ignored) {}
+        intake = new Intake(hardwareMap.get(DcMotor.class, "intakeMotor"));
+        
+        //vision = new Vision(hardwareMap.get(Limelight3A.class, "limelight"), this);
     }
     private IMU initializeIMU() {
         IMU imu = hardwareMap.get(IMU.class, "imu");
@@ -88,11 +91,11 @@ public abstract class BaseOpMode extends LinearOpMode {
         telemetry.addData("\tRuntime", (int) runtime.seconds());
         prevLoopNanoTime = currentNanoTime;
         
-        // endgame alert -- TODO: enable?
-//        if (matchTimer.seconds() >= 110 && !alertedEndgame) {
-//            alertedEndgame = true;
-//            controller.megaRumble();
-//        }
+        // endgame alert
+        if (runtime.seconds() >= 110 && !alertedEndgame) {
+            alertedEndgame = true;
+            controller.megaRumble();
+        }
     }
     
     protected void initFinishedTelemetry() {

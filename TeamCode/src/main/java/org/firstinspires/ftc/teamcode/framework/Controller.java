@@ -39,8 +39,8 @@ public class Controller {
     public boolean intake() {
         return gamepad1.cross || gamepad2.cross;
     }
-    public boolean outtake() {
-        return gamepad1.circle || gamepad2.circle;
+    public boolean intakeReverse() {
+        return gamepad1.triangle || gamepad2.triangle;
     }
     
     public void rumble(int durationMs){

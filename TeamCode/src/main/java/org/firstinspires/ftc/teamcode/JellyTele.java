@@ -14,7 +14,6 @@ public class JellyTele extends BaseOpMode {
     public static double PRECISION_MULTIPLIER_LOW = 0.35;
     public static double PRECISION_MULTIPLIER_HIGH = 0.2;
     public static double STRAFE_ADJUSTMENT_FACTOR = 1.08;
-    private boolean alertedEndgame = false;
     
     @Override
     public void runOpMode() throws InterruptedException {
@@ -28,10 +27,23 @@ public class JellyTele extends BaseOpMode {
         
         while (opModeIsActive()) {
             updateDrive();
+            updateAux();
             timingTelemetry();
             telemetry.update();
         }
         stopHardware();
+    }
+    
+    private void updateAux() {
+        if (controller.intake()) {
+            intake.on();
+        } else if (controller.intakeReverse()) {
+            intake.reverse();
+        } else {
+            intake.off();
+        }
+        
+        telemetry.addData("\nIntake Power", intake.getPower());
     }
     
     
