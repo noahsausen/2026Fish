@@ -35,14 +35,7 @@ public class JellyTele extends BaseOpMode {
     }
     
     private void updateAux() {
-        if (controller.intake()) {
-            intake.on();
-        } else if (controller.intakeReverse()) {
-            intake.reverse();
-        } else {
-            intake.off();
-        }
-        
+        intake.setPower(controller.intake() - controller.intakeReversed());
         telemetry.addData("\nIntake Power", intake.getPower());
     }
     
@@ -86,10 +79,10 @@ public class JellyTele extends BaseOpMode {
         double botHeading = imuSensor.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
         
         double r = controller.turnX();
-        double x = controller.moveX() * STRAFE_ADJUSTMENT_FACTOR;
+        double x = controller.moveX();
         double y = controller.moveY();
         
-        double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
+        double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading) * STRAFE_ADJUSTMENT_FACTOR;
         double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
         
         telemetry.addLine("Drivetrain (Field Centric):");

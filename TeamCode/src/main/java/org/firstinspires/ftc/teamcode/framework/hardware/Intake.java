@@ -7,12 +7,16 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @Configurable
 public class Intake {
     private final DcMotor intakeMotor;
-    public static double POWER = 1;
+    public static double POWER = 0.6;
     
     public Intake(DcMotor motor) {
         intakeMotor = motor;
-        intakeMotor.setDirection(DcMotor.Direction.FORWARD); // TODO: check direction
+        intakeMotor.setDirection(DcMotor.Direction.FORWARD);
         intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    }
+    
+    public void setPower(double power) {
+        intakeMotor.setPower(power);
     }
     
     public void on() {

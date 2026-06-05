@@ -14,16 +14,16 @@ public class Controller {
         this.gamepad2 = gamepad2;
     }
     
-    // Button Mapping -- TODO: update
+    // Button Mapping
     
     public double moveX() {
-        return gamepad1.left_stick_x + gamepad2.left_stick_x;
+        return applyDeadband(gamepad1.left_stick_x + gamepad2.left_stick_x);
     }
     public double moveY() {
-        return -(gamepad1.left_stick_y + gamepad2.left_stick_y);
+        return applyDeadband(-(gamepad1.left_stick_y + gamepad2.left_stick_y));
     }
     public double turnX() {
-        return gamepad1.right_stick_x + gamepad2.right_stick_x;
+        return applyDeadband(gamepad1.right_stick_x + gamepad2.right_stick_x);
     }
     
     public boolean lowPrecision() {
@@ -36,11 +36,11 @@ public class Controller {
         return gamepad1.psWasPressed() || gamepad2.psWasPressed();
     }
     
-    public boolean intake() {
-        return gamepad1.cross || gamepad2.cross;
+    public double intake() {
+        return applyDeadband(gamepad1.right_trigger + gamepad2.right_trigger);
     }
-    public boolean intakeReverse() {
-        return gamepad1.triangle || gamepad2.triangle;
+    public double intakeReversed() {
+        return applyDeadband(gamepad1.left_trigger + gamepad2.left_trigger);
     }
     
     public void rumble(int durationMs){

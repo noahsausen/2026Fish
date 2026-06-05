@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.framework.pedroPathing;
 
 import com.bylazar.configurables.annotations.Configurable;
+import com.pedropathing.control.PIDFCoefficients;
+import com.pedropathing.control.PredictiveBrakingCoefficients;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.follower.FollowerConstants;
 import com.pedropathing.ftc.FollowerBuilder;
@@ -14,9 +16,11 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 @Configurable
-public class Constants { // TODO: 4. other tuning after following todos
+public class Constants { // _TODO: 4. other tuning after following todos
     public static FollowerConstants followerConstants = new FollowerConstants()
-            .centripetalScaling(0);
+            .centripetalScaling(0)
+            .headingPIDFCoefficients(new PIDFCoefficients(1, 0, 0.05, 0.01))
+            .predictiveBrakingCoefficients(new PredictiveBrakingCoefficients(0.2, 0.03774556, 0.001692619));
     
     public static MecanumConstants driveConstants = new MecanumConstants()
             .maxPower(1)
@@ -27,16 +31,18 @@ public class Constants { // TODO: 4. other tuning after following todos
             .leftFrontMotorDirection(DcMotorSimple.Direction.REVERSE)
             .leftRearMotorDirection(DcMotorSimple.Direction.REVERSE)
             .rightFrontMotorDirection(DcMotorSimple.Direction.FORWARD)
-            .rightRearMotorDirection(DcMotorSimple.Direction.FORWARD);
+            .rightRearMotorDirection(DcMotorSimple.Direction.FORWARD)
+            .xVelocity(68.91360882135825)
+            .yVelocity(57.73768099086492);
     
     public static PinpointConstants localizerConstants = new PinpointConstants()
-            .forwardPodY(0) // TODO: 3. offsets tuner
-            .strafePodX(0)
+            .forwardPodY(-9.174017) // _TODO: 3. offsets tuner
+            .strafePodX(-3.5204486)
             .distanceUnit(DistanceUnit.INCH)
-            .hardwareMapName("pinpoint") // TODO: 1. check: i2c port not 0, hardware map matches
+            .hardwareMapName("pinpoint") // _TODO: 1. check: i2c port not 0, hardware map matches
             .encoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_SWINGARM_POD)
-            .forwardEncoderDirection(GoBildaPinpointDriver.EncoderDirection.FORWARD) // TODO: 2. forward increases x,
-            .strafeEncoderDirection(GoBildaPinpointDriver.EncoderDirection.FORWARD); // left increases y
+            .forwardEncoderDirection(GoBildaPinpointDriver.EncoderDirection.REVERSED) // _TODO: 2. forward increases x,
+            .strafeEncoderDirection(GoBildaPinpointDriver.EncoderDirection.REVERSED); // left increases y
     
     /* DEFAULT REQUIREMENTS FOR PATHS TO BE CONSIDERED COMPLETE:
      * TValue: min fraction of path complete (0-1)
