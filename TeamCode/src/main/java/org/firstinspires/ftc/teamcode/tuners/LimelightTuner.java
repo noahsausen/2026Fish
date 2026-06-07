@@ -25,7 +25,7 @@ public class LimelightTuner extends LinearOpMode {
             if (status != null) {
                 telemetry.addData("Actual FPS", status.getFps());
             }
-            LLResult result = vision.getResult();
+            LLResult result = vision.getValidResult();
             if (result != null) {
                 telemetry.addData("Target X", result.getTx());
                 telemetry.addData("Target Y", result.getTy());
